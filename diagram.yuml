@@ -1,0 +1,62 @@
+// https://yuml.me/diagram/plain/class/draw
+
+[<<interface>>;Creature|+getItem(Item);+giveItem(Item, Creature);+throwItem(Item);+move(Location);+getLocation(): Location;+participatesInSearch(Item): boolean]
+
+[Resident|-name: String;-location: Location;#items: ArrayList\<Item\>|+getItem(Item);+giveItem(Item, Creature);+throwItem(Item);+move(Location);+getLocation(): Location;+participatesInSearch(Item): boolean;+getName(): String;+setName(String);+toString(): String;+hashCode(): int;+equals(Object): boolean]
+
+[Rat|+participatesInSearch(Item): boolean;+toString(): String]
+
+[<<abstract>>;Useless|#𝘸𝘩𝘺𝘜𝘴𝘦𝘭𝘦𝘴𝘴(): 𝘚𝘵𝘳𝘪𝘯𝘨;+participatesInSearch(Item): boolean]
+
+[Old|#whyUseless(): String]
+[Sick|#whyUseless(): String]
+[MummyMama|#whyUseless(): String]
+
+[<<interface>>;Item|+setLocation(Location);+getLocation(): Location;+setOwner(Creature);+getOwner(): Creature]
+
+[Hat|-description: String;-location: Location;-owner: Creature|+setLocation(Location);+getLocation(): Location;+setOwner(Creature);+getOwner(): Creature;+getDescription(): String;+setDescription(String);+toString(): String;+hashCode(): int;+equals(Object): boolean]
+
+[<<interface>>;Location|+put(Creature);+put(Item);+remove(Creature);+remove(Item);+search(Item): Creature]
+
+[Place|-type: Type;#items: ArrayList\<Item\>;#residents: ArrayList\<Creature\>|+put(Creature...);+put(Item...);+remove(Creature);+remove(Item);+search(Item): Creature;+toString(): String;+hashCode(): int;+equals(Object): boolean]
+
+[Valley|#places: ArrayList\<Place\>|+put(Creature...);+put(Item...);+remove(Creature);+remove(Item);+search(Item): Creature;+addPlaces(Place...);+toString(): String;+hashCode(): int;+equals(Object): boolean]
+
+[<<abstract>>;SearchAnnouncement|-loser: Creature;-lostItem: Item|#𝘳𝘦𝘸𝘢𝘳𝘥(𝘊𝘳𝘦𝘢𝘵𝘶𝘳𝘦);+whoLost(): Creature;+getLostItem(): Item;+startSearch(Valley);+toString(): String;+hashCode(): int;+equals(Object): boolean]
+
+[SearchAnnouncementWithFeast|#reward(Creature)]
+
+[<<enumeration>>;Type|WOODS;MOUNTAINS;COAST|-name: String|+toString(): String;+getName(): String]
+
+[Main|+main(String...)]
+
+[Creature]<-.-[Resident]
+[Resident]^[Rat]
+[Resident]^[Useless]
+[Useless]^[Old]
+[Useless]^[Sick]
+[Useless]^[MummyMama]
+[Item]<-.-[Hat]
+[Location]<-.-[Place]
+[Location]<-.-[Valley]
+[SearchAnnouncement]^[SearchAnnouncementWithFeast]
+[Place]<>1-1>[Type]
+[Place]<>1-*>[Item]
+[Place]<>1-*>[Creature]
+[Valley]<>1-*>[Place]
+[Resident]<>1-1>[Location]
+[Resident]<>1-*>[Item]
+[Hat]<>1-1>[Location]
+[Hat]<>1-1>[Creature]
+[SearchAnnouncement]<>-1>[Creature]
+[SearchAnnouncement]<>-1>[Item]
+
+[Main]-.-"create">[Valley]
+[Main]-.-"create">[Place]
+[Main]-.-"create">[Resident]
+[Main]-.-"create">[Rat]
+[Main]-.-"create">[Old]
+[Main]-.-"create">[Sick]
+[Main]-.-"create">[MummyMama]
+[Main]-.-"create">[SearchAnnouncementWithFeast]
+[Main]-.-"create">[Hat]
